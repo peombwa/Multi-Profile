@@ -6,5 +6,5 @@
 input-file:
   - $(this-folder)/beta/Users.Mail.yml
   - $(this-folder)/v1.0/Users.Mail.yml
-require: $(this-folder)/../../profiles/readme.md
+# require: $(this-folder)/../../profiles/readme.md
 ```

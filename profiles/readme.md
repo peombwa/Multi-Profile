@@ -6,6 +6,6 @@
 
 ``` yaml
 require:
-  - $(this-folder)/definitions/latest-v1.0-beta.md
+  - $(this-folder)/definitions/latest-v1.0-Beta.md
   - $(this-folder)/definitions/latest-v1.0.md
 ```

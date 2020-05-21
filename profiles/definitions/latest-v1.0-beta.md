@@ -4,7 +4,7 @@
 
 ``` yaml 
 profiles:
-  latest-v1.0-beta:
+  latest-v1.0-Beta:
     resources: {}
     operations:
       '/users/{user-id}/inferenceClassification': v1.0-Beta
