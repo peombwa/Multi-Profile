@@ -13,7 +13,7 @@ type Code = {
 const main = async (specificationsDirectory: string, profilesDirectory: string) => {
   try {
     const list = fs.recursiveReaddir(specificationsDirectory);
-    const specs = [];  
+    const specs = [];
     let foundMultiApiReadmes = false;
     for await (const file of list) {
       const f = Path.parse(file);
@@ -41,63 +41,31 @@ const main = async (specificationsDirectory: string, profilesDirectory: string) 
             }
           }
         }
-      }     
+      }
     }
-    
+
     if (!foundMultiApiReadmes){
       throw  `Couldn't find any readme.enable-multi-api.md files.`
     }
 
-    const allPaths = await getPaths(specs);
-    console.log(allPaths);
-    const crawlResult = getCrawlData(allPaths);
-    const telemetryDir = Path.join(profilesDirectory, 'crawl-log.json')
-    fs.writeFile(telemetryDir, JSON.stringify(crawlResult, null, 2));
-    console.log(`Telemetry written at ${telemetryDir}`);
-    
-    const latestProfile = getLatestProfile(crawlResult);
-    const latestProfileMarkDown = cm.markDownExToString(
-      { 
-        markDown: cm.createNode(
-        "document",
-        cm.createNode(
-          "heading",
-          cm.createText("Latest Azure Profile")
-        ),
-        cm.createNode(
-          "block_quote",
-          cm.createNode(
-            "paragraph",
-            cm.createText("see https://aka.ms/autorest")
-          )
-        ),
-          cm.createCodeBlock(
-            "yaml ",
-            yaml.dump({ "profiles":{[`latest-${getFormattedDate()}`]: latestProfile} }, { lineWidth: 1000 })
-          )
-        )
-      }
-    );
-    const latestProfileDir = Path.join(profilesDirectory, `definitions/`);
-    const latestProfileLocation = Path.join(latestProfileDir, `latest-${getFormattedDate()}.md`);
-    fs.writeFile(latestProfileLocation, latestProfileMarkDown);
-    console.log(`Latest profile written at ${latestProfileLocation}`);
-    
-    // now get all the profile definitions and generate the readme.
-    const definitions = fs.recursiveReaddir(latestProfileDir);
-    const definitionsRelativePaths = [];
-    for await (const file of definitions){
-      const f = Path.parse(file);
-      definitionsRelativePaths.push(`$(this-folder)/definitions/${f.base}`);
-    }
+    for(const spec of specs){
+      console.log(`Processing spec: ${spec}`)
+      const allPaths = await getPaths(specs);
+      console.log(allPaths);
+      const apiVersion = Array.from(new Set(allPaths.map((path: PathMetadata) => path.apiVersion)))[0]
+      const crawlResult = getCrawlData(allPaths);
+      const telemetryDir = Path.join(profilesDirectory, `crawl-log-${apiVersion}.json`);
+      fs.writeFile(telemetryDir, JSON.stringify(crawlResult, null, 2));
+      console.log(`Telemetry written at ${telemetryDir}`);
 
-    const profilesReadme = cm.markDownExToString(
-      { 
-        markDown: cm.createNode(
+      const latestProfile = getLatestProfile(crawlResult);
+      const latestProfileMarkDown = cm.markDownExToString(
+        {
+          markDown: cm.createNode(
           "document",
           cm.createNode(
-            'heading',
-            cm.createText("Azure Profiles")
+            "heading",
+            cm.createText("Latest Azure Profile")
           ),
           cm.createNode(
             "block_quote",
@@ -106,39 +74,63 @@ const main = async (specificationsDirectory: string, profilesDirectory: string) 
               cm.createText("see https://aka.ms/autorest")
             )
           ),
-          cm.createNode(
-            "block_quote",
-            cm.createNode(
-              "paragraph",
-              cm.createText("The files under this directory are the profile definitions used by autorest.")
+            cm.createCodeBlock(
+              "yaml ",
+              yaml.dump({ "profiles":{[`latest-${apiVersion}`]: latestProfile} }, { lineWidth: 1000 })
             )
-          ),
-          cm.createCodeBlock(
-            "yaml",
-            yaml.dump({ "require": definitionsRelativePaths })
           )
-        )
-      }
-    );
+        }
+      );
+      const latestProfileDir = Path.join(profilesDirectory, `definitions/`);
+      const latestProfileLocation = Path.join(latestProfileDir, `latest-${apiVersion}.md`);
+      fs.writeFile(latestProfileLocation, latestProfileMarkDown);
+      console.log(`Latest profile written at ${latestProfileLocation}`);
 
-    fs.writeFile(Path.join(profilesDirectory, "readme.md"), profilesReadme);
-    console.log(`Regenerated profiles readme.md at ${profilesDirectory}`);
-    console.log('DONE');    
+      // now get all the profile definitions and generate the readme.
+      const definitions = fs.recursiveReaddir(latestProfileDir);
+      const definitionsRelativePaths = [];
+      for await (const file of definitions){
+        const f = Path.parse(file);
+        definitionsRelativePaths.push(`$(this-folder)/definitions/${f.base}`);
+      }
+
+      const profilesReadme = cm.markDownExToString(
+        {
+          markDown: cm.createNode(
+            "document",
+            cm.createNode(
+              'heading',
+              cm.createText("Azure Profiles")
+            ),
+            cm.createNode(
+              "block_quote",
+              cm.createNode(
+                "paragraph",
+                cm.createText("see https://aka.ms/autorest")
+              )
+            ),
+            cm.createNode(
+              "block_quote",
+              cm.createNode(
+                "paragraph",
+                cm.createText("The files under this directory are the profile definitions used by autorest.")
+              )
+            ),
+            cm.createCodeBlock(
+              "yaml",
+              yaml.dump({ "require": definitionsRelativePaths })
+            )
+          )
+        }
+      );
+
+      fs.writeFile(Path.join(profilesDirectory, "readme.md"), profilesReadme);
+      console.log(`Regenerated profiles readme.md at ${profilesDirectory}`);
+      console.log('DONE');
+    }
   } catch (e) {
     console.error(e);
   }
-}
-
-function getFormattedDate(): string {
-  const today = new Date();
-  const monthNumber = today.getMonth() + 1; 
-  const dayNumber = today.getDate();
-
-  const yyyy = String(today.getFullYear());
-  const mm = (monthNumber < 10) ? `0${monthNumber}` : String(monthNumber);
-  const dd = (dayNumber < 10) ? `0${dayNumber}`  : String(dayNumber);
-  
-  return `${yyyy}-${mm}-${dd}`;
 }
 
 async function getPaths(specHandles: Array<string>): Promise<Array<PathMetadata>> {
@@ -156,14 +148,14 @@ async function getPaths(specHandles: Array<string>): Promise<Array<PathMetadata>
       if (spec.openapi && spec.info.version) {
         for (const path of Object.entries(spec.paths)) {
           result.push({endpoint: path[0], apiVersion: spec.info.version, originalLocation: Path.relative(process.cwd(), specHandle).replace(/\\/g, '/')});
-        }   
+        }
       }
     }  catch (e) {
       console.error(`Couldn't parse ${specHandle} - ${e}`);
-    }          
+    }
   }
 
-  return result;   
+  return result;
 }
 
 function getCrawlData(paths: Array<PathMetadata>): CrawlResult {
@@ -173,10 +165,10 @@ function getCrawlData(paths: Array<PathMetadata>): CrawlResult {
   const parameterPattern = `\{[a-z0-9]+\}`;
   const nonParameterPattern = `[a-z0-9]+`;
   const resourcePathRegex = new RegExp(`(.*)(\/providers\/${providerNamePattern}(:?\/${nonParameterPattern}|\/${parameterPattern})+\/?$)`, 'gi');
-  for (const p of paths) {      
+  for (const p of paths) {
     if (p.endpoint.match(resourcePathRegex)) {
       const resource = { path: p.endpoint, apiVersion: p.apiVersion, providerNamespace: '', name: ''};
-      
+
       // get last /provider/microsoft.<provider>... section. Also, get rid of any possible trailing slash '/'
       const scopedProviderSection =  resource.path.replace(/\/*$/, '').replace(resourcePathRegex, '$2').split('/');
       resource.providerNamespace = scopedProviderSection[2].toLowerCase();
@@ -189,15 +181,15 @@ function getCrawlData(paths: Array<PathMetadata>): CrawlResult {
 
         result.blackListedPaths.push(p);
         continue;
-      } 
+      }
 
       const resourcesSection = `/${scopedProviderSection.slice(3).join('/')}`;
       const resourceRegex = new RegExp(`\/${nonParameterPattern}\/${nonParameterPattern}|\/${nonParameterPattern}\/${parameterPattern}|\/${nonParameterPattern}$`, 'gi');
-      const resourceMatches = resourcesSection.match(resourceRegex); 
+      const resourceMatches = resourcesSection.match(resourceRegex);
       if (resourceMatches !== null) {
-        const resourceNames = resourceMatches.map(each => each.split('/')[1]);    
-        resource.name  = resourceNames.join('/');        
-      } 
+        const resourceNames = resourceMatches.map(each => each.split('/')[1]);
+        resource.name  = resourceNames.join('/');
+      }
 
       result.resources.push(resource);
     } else {
@@ -206,14 +198,14 @@ function getCrawlData(paths: Array<PathMetadata>): CrawlResult {
       }
 
       result.operations[p.endpoint].push({apiVersion:p.apiVersion, originalLocation: p.originalLocation})
-    }    
+    }
   }
 
   return result;
 }
 
 
-export function getLatestProfile(crawlData: CrawlResult): Profile { 
+export function getLatestProfile(crawlData: CrawlResult): Profile {
   const latestProfile: Profile = {resources:{}, operations: {}};
   const allResources = crawlData.resources;
   const allOperations = crawlData.operations;
@@ -228,7 +220,7 @@ export function getLatestProfile(crawlData: CrawlResult): Profile {
       const dummy = '';
       console.log(dummy);
     }
-    
+
   });
 
   const latestResources: {[uid: string] : Resource } = {};
@@ -239,7 +231,7 @@ export function getLatestProfile(crawlData: CrawlResult): Profile {
     }
   }
 
- 
+
   for (const resource of values(latestResources)) {
     latestProfile.resources[resource.providerNamespace] = latestProfile.resources[resource.providerNamespace] || {};
     latestProfile.resources[resource.providerNamespace][resource.apiVersion] = latestProfile.resources[resource.providerNamespace][resource.apiVersion] || [];
@@ -261,7 +253,7 @@ export function getLatestProfile(crawlData: CrawlResult): Profile {
 
   for (const operation of keys(allOperations)) {
       latestProfile.operations[operation] = allOperations[operation][0].apiVersion;
-  } 
+  }
 
   return latestProfile;
 }
@@ -278,7 +270,7 @@ function getSemverEquivalent(version: string) {
     }
     result = Number.isNaN(Number.parseInt(i)) ? `${result}-${i}` : `${result}.${Number(i)}`;
   }
-  
+
   const semver = require('semver');
 
   return semver.valid(semver.coerce(result));
@@ -295,7 +287,7 @@ interface CrawlResult {
   operations: {
     [operation:string]: Array<{
       apiVersion: string;
-      originalLocation: string; 
+      originalLocation: string;
     }>;
   },
   resources: Array<Resource>,
@@ -319,4 +311,4 @@ interface Profile {
   }
 }
 
-main(Path.join("D:\\Temp\\specification"), "D:\\Temp\\profiles");
+main(Path.join(process.cwd(), "../specification"), Path.join(process.cwd(), "../profiles"));
