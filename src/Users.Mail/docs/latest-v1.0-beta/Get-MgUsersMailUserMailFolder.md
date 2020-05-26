@@ -12,7 +12,7 @@ Get mailFolders from users
 
 ## SYNTAX
 
-### List1 (Default)
+### List (Default)
 ```
 Get-MgUsersMailUserMailFolder -UserId <String> [-Count] [-Filter <String>] [-Orderby <String[]>]
  [-Select <String[]>] [-Skip <Int32>] [-Top <Int32>] [<CommonParameters>]
@@ -59,7 +59,7 @@ Include count of items
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -74,7 +74,7 @@ Filter items by property values
 
 ```yaml
 Type: System.String
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -120,7 +120,7 @@ Order items by property values
 
 ```yaml
 Type: System.String[]
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -150,7 +150,7 @@ Skip the first n items
 
 ```yaml
 Type: System.Int32
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -165,7 +165,7 @@ Show only the first n items
 
 ```yaml
 Type: System.Int32
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -180,7 +180,7 @@ key: user-id of user
 
 ```yaml
 Type: System.String
-Parameter Sets: Get, List1
+Parameter Sets: Get, List
 Aliases:
 
 Required: True
@@ -199,13 +199,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder1
+### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder
 
 ## NOTES
 
 ALIASES
 
 COMPLEX PARAMETER PROPERTIES
+
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 

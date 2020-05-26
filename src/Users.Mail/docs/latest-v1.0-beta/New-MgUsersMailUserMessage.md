@@ -37,13 +37,13 @@ New-MgUsersMailUserMessage -UserId <String> [-Attachments <IMicrosoftGraphAttach
 
 ### Create
 ```
-New-MgUsersMailUserMessage -UserId <String> -BodyParameter <IMicrosoftGraphMessage1> [-Confirm] [-WhatIf]
+New-MgUsersMailUserMessage -UserId <String> -BodyParameter <IMicrosoftGraphMessage> [-Confirm] [-WhatIf]
  [<CommonParameters>]
 ```
 
 ### CreateViaIdentity
 ```
-New-MgUsersMailUserMessage -InputObject <IUsersMailIdentity> -BodyParameter <IMicrosoftGraphMessage1>
+New-MgUsersMailUserMessage -InputObject <IUsersMailIdentity> -BodyParameter <IMicrosoftGraphMessage>
  [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
@@ -162,7 +162,7 @@ message
 To construct, see NOTES section for BODYPARAMETER properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage1
+Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage
 Parameter Sets: Create, CreateViaIdentity
 Aliases:
 
@@ -939,19 +939,20 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage1
+### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage
 
 ### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IUsersMailIdentity
 
 ## OUTPUTS
 
-### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage1
+### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage
 
 ## NOTES
 
 ALIASES
 
 COMPLEX PARAMETER PROPERTIES
+
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
@@ -967,7 +968,7 @@ BCCRECIPIENTS <IMicrosoftGraphRecipient[]>: The Bcc: recipients for the message.
   - `[EmailAddressAddress <String>]`: The email address of the person or entity.
   - `[EmailAddressName <String>]`: The display name of the person or entity.
 
-BODYPARAMETER <IMicrosoftGraphMessage1>: message
+BODYPARAMETER <IMicrosoftGraphMessage>: message
   - `[Categories <String[]>]`: The categories associated with the item
   - `[ChangeKey <String>]`: Identifies the version of the item. Every time the item is changed, changeKey changes as well. This allows Exchange to apply changes to the correct version of the object. Read-only.
   - `[CreatedDateTime <DateTime?>]`: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'

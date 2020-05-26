@@ -19,13 +19,13 @@ Get-MgUsersMailUserInferenceClassificationOverride -UserId <String> [-Count] [-E
  [-Top <Int32>] [<CommonParameters>]
 ```
 
-### Get
+### Get1
 ```
 Get-MgUsersMailUserInferenceClassificationOverride -InferenceClassificationOverrideId <String>
  -UserId <String> [-Expand <String[]>] [-Select <String[]>] [<CommonParameters>]
 ```
 
-### GetViaIdentity
+### GetViaIdentity1
 ```
 Get-MgUsersMailUserInferenceClassificationOverride -InputObject <IUsersMailIdentity> [-Expand <String[]>]
  [-Select <String[]>] [<CommonParameters>]
@@ -106,7 +106,7 @@ key: inferenceClassificationOverride-id of inferenceClassificationOverride
 
 ```yaml
 Type: System.String
-Parameter Sets: Get
+Parameter Sets: Get1
 Aliases:
 
 Required: True
@@ -122,7 +122,7 @@ To construct, see NOTES section for INPUTOBJECT properties and create a hash tab
 
 ```yaml
 Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IUsersMailIdentity
-Parameter Sets: GetViaIdentity
+Parameter Sets: GetViaIdentity1
 Aliases:
 
 Required: True
@@ -212,7 +212,7 @@ key: user-id of user
 
 ```yaml
 Type: System.String
-Parameter Sets: Get, List
+Parameter Sets: Get1, List
 Aliases:
 
 Required: True
@@ -238,6 +238,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ALIASES
 
 COMPLEX PARAMETER PROPERTIES
+
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 

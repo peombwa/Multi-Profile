@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLatestProfile = void 0;
 const tslib_1 = require("tslib");
 const fs = tslib_1.__importStar(require("@ts-common/fs"));
 const process = tslib_1.__importStar(require("process"));
@@ -46,7 +45,7 @@ const main = async (specificationsDirectory, profilesDirectory) => {
         }
         for (const spec of specs) {
             console.log(`Processing spec: ${spec}`);
-            const allPaths = await getPaths(specs);
+            const allPaths = await getPaths([spec]);
             console.log(allPaths);
             const apiVersion = Array.from(new Set(allPaths.map((path) => path.apiVersion)))[0];
             const crawlResult = getCrawlData(allPaths);
@@ -204,5 +203,5 @@ function getSemverEquivalent(version) {
     const semver = require('semver');
     return semver.valid(semver.coerce(result));
 }
-main(Path.join(process.cwd(), "../specification"), Path.join(process.cwd(), "../profiles"));
+main(Path.join(process.cwd(), "specification"), Path.join(process.cwd(), "profiles"));
 //# sourceMappingURL=latest-profile-generator.js.map

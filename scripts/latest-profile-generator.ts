@@ -50,7 +50,7 @@ const main = async (specificationsDirectory: string, profilesDirectory: string) 
 
     for(const spec of specs){
       console.log(`Processing spec: ${spec}`)
-      const allPaths = await getPaths(specs);
+      const allPaths = await getPaths([spec]);
       console.log(allPaths);
       const apiVersion = Array.from(new Set(allPaths.map((path: PathMetadata) => path.apiVersion)))[0]
       const crawlResult = getCrawlData(allPaths);
@@ -311,4 +311,4 @@ interface Profile {
   }
 }
 
-main(Path.join(process.cwd(), "../specification"), Path.join(process.cwd(), "../profiles"));
+main(Path.join(process.cwd(), "specification"), Path.join(process.cwd(), "profiles"));

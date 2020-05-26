@@ -12,20 +12,20 @@ Get attachments from users
 
 ## SYNTAX
 
-### List1 (Default)
+### List (Default)
 ```
 Get-MgUsersMailUserMailFolderMessageAttachment -MailFolderId <String> -MessageId <String> -UserId <String>
  [-Count] [-Expand <String[]>] [-Filter <String>] [-Orderby <String[]>] [-Select <String[]>] [-Skip <Int32>]
  [-Top <Int32>] [<CommonParameters>]
 ```
 
-### Get1
+### Get
 ```
 Get-MgUsersMailUserMailFolderMessageAttachment -AttachmentId <String> -MailFolderId <String>
  -MessageId <String> -UserId <String> [-Expand <String[]>] [-Select <String[]>] [<CommonParameters>]
 ```
 
-### GetViaIdentity1
+### GetViaIdentity
 ```
 Get-MgUsersMailUserMailFolderMessageAttachment -InputObject <IUsersMailIdentity> [-Expand <String[]>]
  [-Select <String[]>] [<CommonParameters>]
@@ -61,7 +61,7 @@ key: attachment-id of attachment
 
 ```yaml
 Type: System.String
-Parameter Sets: Get1
+Parameter Sets: Get
 Aliases:
 
 Required: True
@@ -76,7 +76,7 @@ Include count of items
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -106,7 +106,7 @@ Filter items by property values
 
 ```yaml
 Type: System.String
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -122,7 +122,7 @@ To construct, see NOTES section for INPUTOBJECT properties and create a hash tab
 
 ```yaml
 Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IUsersMailIdentity
-Parameter Sets: GetViaIdentity1
+Parameter Sets: GetViaIdentity
 Aliases:
 
 Required: True
@@ -137,7 +137,7 @@ key: mailFolder-id of mailFolder
 
 ```yaml
 Type: System.String
-Parameter Sets: Get1, List1
+Parameter Sets: Get, List
 Aliases:
 
 Required: True
@@ -152,7 +152,7 @@ key: message-id of message
 
 ```yaml
 Type: System.String
-Parameter Sets: Get1, List1
+Parameter Sets: Get, List
 Aliases:
 
 Required: True
@@ -167,7 +167,7 @@ Order items by property values
 
 ```yaml
 Type: System.String[]
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -197,7 +197,7 @@ Skip the first n items
 
 ```yaml
 Type: System.Int32
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -212,7 +212,7 @@ Show only the first n items
 
 ```yaml
 Type: System.Int32
-Parameter Sets: List1
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -227,7 +227,7 @@ key: user-id of user
 
 ```yaml
 Type: System.String
-Parameter Sets: Get1, List1
+Parameter Sets: Get, List
 Aliases:
 
 Required: True
@@ -253,6 +253,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ALIASES
 
 COMPLEX PARAMETER PROPERTIES
+
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 

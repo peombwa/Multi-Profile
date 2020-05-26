@@ -36,6 +36,6 @@ output-folder: .
 tag: all-api-versions
 require: $(this-folder)../profiles/readme.md
 profile:
-  - latest-v1.0-beta
+  - latest-v1.0-Beta
   - latest-v1.0
 ```

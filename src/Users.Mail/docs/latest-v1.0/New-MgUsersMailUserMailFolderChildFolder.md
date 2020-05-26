@@ -15,8 +15,8 @@ Create new navigation property to childFolders for users
 ### CreateExpanded (Default)
 ```
 New-MgUsersMailUserMailFolderChildFolder -MailFolderId <String> -UserId <String> [-ChildFolderCount <Int32>]
- [-ChildFolders <IMicrosoftGraphMailFolder[]>] [-DisplayName <String>] [-Id <String>]
- [-MessageRules <IMicrosoftGraphMessageRule[]>] [-Messages <IMicrosoftGraphMessage[]>]
+ [-ChildFolders <IMicrosoftGraphMailFolder1[]>] [-DisplayName <String>] [-Id <String>]
+ [-MessageRules <IMicrosoftGraphMessageRule[]>] [-Messages <IMicrosoftGraphMessage1[]>]
  [-MultiValueExtendedProperties <IMicrosoftGraphMultiValueLegacyExtendedProperty[]>]
  [-ParentFolderId <String>]
  [-SingleValueExtendedProperties <IMicrosoftGraphSingleValueLegacyExtendedProperty[]>]
@@ -26,20 +26,20 @@ New-MgUsersMailUserMailFolderChildFolder -MailFolderId <String> -UserId <String>
 ### Create
 ```
 New-MgUsersMailUserMailFolderChildFolder -MailFolderId <String> -UserId <String>
- -BodyParameter <IMicrosoftGraphMailFolder> [-Confirm] [-WhatIf] [<CommonParameters>]
+ -BodyParameter <IMicrosoftGraphMailFolder1> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ### CreateViaIdentity
 ```
 New-MgUsersMailUserMailFolderChildFolder -InputObject <IUsersMailIdentity>
- -BodyParameter <IMicrosoftGraphMailFolder> [-Confirm] [-WhatIf] [<CommonParameters>]
+ -BodyParameter <IMicrosoftGraphMailFolder1> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ### CreateViaIdentityExpanded
 ```
 New-MgUsersMailUserMailFolderChildFolder -InputObject <IUsersMailIdentity> [-ChildFolderCount <Int32>]
- [-ChildFolders <IMicrosoftGraphMailFolder[]>] [-DisplayName <String>] [-Id <String>]
- [-MessageRules <IMicrosoftGraphMessageRule[]>] [-Messages <IMicrosoftGraphMessage[]>]
+ [-ChildFolders <IMicrosoftGraphMailFolder1[]>] [-DisplayName <String>] [-Id <String>]
+ [-MessageRules <IMicrosoftGraphMessageRule[]>] [-Messages <IMicrosoftGraphMessage1[]>]
  [-MultiValueExtendedProperties <IMicrosoftGraphMultiValueLegacyExtendedProperty[]>]
  [-ParentFolderId <String>]
  [-SingleValueExtendedProperties <IMicrosoftGraphSingleValueLegacyExtendedProperty[]>]
@@ -76,7 +76,7 @@ mailFolder
 To construct, see NOTES section for BODYPARAMETER properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder
+Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder1
 Parameter Sets: Create, CreateViaIdentity
 Aliases:
 
@@ -107,7 +107,7 @@ Accept wildcard characters: False
 To construct, see NOTES section for CHILDFOLDERS properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder[]
+Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder1[]
 Parameter Sets: CreateExpanded, CreateViaIdentityExpanded
 Aliases:
 
@@ -200,7 +200,7 @@ Accept wildcard characters: False
 To construct, see NOTES section for MESSAGES properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage[]
+Type: Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMessage1[]
 Parameter Sets: CreateExpanded, CreateViaIdentityExpanded
 Aliases:
 
@@ -339,26 +339,27 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder
+### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder1
 
 ### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IUsersMailIdentity
 
 ## OUTPUTS
 
-### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder
+### Microsoft.Graph.PowerShell.Cmdlets.UsersMail.Models.IMicrosoftGraphMailFolder1
 
 ## NOTES
 
 ALIASES
 
 COMPLEX PARAMETER PROPERTIES
+
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-BODYPARAMETER <IMicrosoftGraphMailFolder>: mailFolder
+BODYPARAMETER <IMicrosoftGraphMailFolder1>: mailFolder
   - `[Id <String>]`: Read-only.
   - `[ChildFolderCount <Int32?>]`: The number of immediate child mailFolders in the current mailFolder.
-  - `[ChildFolders <IMicrosoftGraphMailFolder[]>]`: 
+  - `[ChildFolders <IMicrosoftGraphMailFolder1[]>]`: 
   - `[DisplayName <String>]`: The mailFolder's display name.
   - `[MessageRules <IMicrosoftGraphMessageRule[]>]`: 
     - `[Id <String>]`: Read-only.
@@ -413,7 +414,7 @@ BODYPARAMETER <IMicrosoftGraphMailFolder>: mailFolder
     - `[IsEnabled <Boolean?>]`: Indicates whether the rule is enabled to be applied to messages.
     - `[IsReadOnly <Boolean?>]`: Indicates if the rule is read-only and cannot be modified or deleted by the rules REST API.
     - `[Sequence <Int32?>]`: Indicates the order in which the rule is executed, among other rules.
-  - `[Messages <IMicrosoftGraphMessage[]>]`: 
+  - `[Messages <IMicrosoftGraphMessage1[]>]`: 
     - `[Categories <String[]>]`: The categories associated with the item
     - `[ChangeKey <String>]`: Identifies the version of the item. Every time the item is changed, changeKey changes as well. This allows Exchange to apply changes to the correct version of the object. Read-only.
     - `[CreatedDateTime <DateTime?>]`: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
@@ -478,10 +479,10 @@ BODYPARAMETER <IMicrosoftGraphMailFolder>: mailFolder
   - `[TotalItemCount <Int32?>]`: The number of items in the mailFolder.
   - `[UnreadItemCount <Int32?>]`: The number of items in the mailFolder marked as unread.
 
-CHILDFOLDERS <IMicrosoftGraphMailFolder[]>: .
+CHILDFOLDERS <IMicrosoftGraphMailFolder1[]>: .
   - `[Id <String>]`: Read-only.
   - `[ChildFolderCount <Int32?>]`: The number of immediate child mailFolders in the current mailFolder.
-  - `[ChildFolders <IMicrosoftGraphMailFolder[]>]`: 
+  - `[ChildFolders <IMicrosoftGraphMailFolder1[]>]`: 
   - `[DisplayName <String>]`: The mailFolder's display name.
   - `[MessageRules <IMicrosoftGraphMessageRule[]>]`: 
     - `[Id <String>]`: Read-only.
@@ -536,7 +537,7 @@ CHILDFOLDERS <IMicrosoftGraphMailFolder[]>: .
     - `[IsEnabled <Boolean?>]`: Indicates whether the rule is enabled to be applied to messages.
     - `[IsReadOnly <Boolean?>]`: Indicates if the rule is read-only and cannot be modified or deleted by the rules REST API.
     - `[Sequence <Int32?>]`: Indicates the order in which the rule is executed, among other rules.
-  - `[Messages <IMicrosoftGraphMessage[]>]`: 
+  - `[Messages <IMicrosoftGraphMessage1[]>]`: 
     - `[Categories <String[]>]`: The categories associated with the item
     - `[ChangeKey <String>]`: Identifies the version of the item. Every time the item is changed, changeKey changes as well. This allows Exchange to apply changes to the correct version of the object. Read-only.
     - `[CreatedDateTime <DateTime?>]`: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
@@ -669,7 +670,7 @@ MESSAGERULES <IMicrosoftGraphMessageRule[]>: .
   - `[IsReadOnly <Boolean?>]`: Indicates if the rule is read-only and cannot be modified or deleted by the rules REST API.
   - `[Sequence <Int32?>]`: Indicates the order in which the rule is executed, among other rules.
 
-MESSAGES <IMicrosoftGraphMessage[]>: .
+MESSAGES <IMicrosoftGraphMessage1[]>: .
   - `[Categories <String[]>]`: The categories associated with the item
   - `[ChangeKey <String>]`: Identifies the version of the item. Every time the item is changed, changeKey changes as well. This allows Exchange to apply changes to the correct version of the object. Read-only.
   - `[CreatedDateTime <DateTime?>]`: The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
